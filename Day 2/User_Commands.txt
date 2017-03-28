@@ -1,0 +1,11 @@
+create user enovia16xLA identified by enovia16xLA;
+grant dba to enovia16xLA;
+grant connect to enovia16xLA;
+grant EXP_FULL_DATABASE to enovia16xLA;
+grant imp_full_database to enovia16xLA; 
+GRANT DATAPUMP_EXP_FULL_DATABASE to enovia16xLA;
+GRANT DATAPUMP_IMP_FULL_DATABASE to enovia16xLA;
+grant resource to enovia16xLA;
+grant unlimited tablespace to enovia16xLA;
+grant all privileges to enovia16xLA with admin option;
+commit;

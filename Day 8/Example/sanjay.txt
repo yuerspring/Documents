@@ -1,0 +1,54 @@
+import java.util.Iterator;
+import java.util.Map;
+
+import matrix.db.Context;
+import matrix.util.StringList;
+
+import com.matrixone.apps.domain.DomainConstants;
+import com.matrixone.apps.domain.DomainObject;
+import com.matrixone.apps.domain.util.MapList;
+import com.matrixone.apps.domain.util.PropertyUtil;
+public class ${CLASSNAME}
+{
+   
+
+	
+public int mxMain(Context context, String[] args) throws Exception 
+{	
+    System.out.println("inside main");
+         DomainObject doObjectE = new DomainObject(args[0]);
+          MapList mListRelatedData = new MapList();
+          StringList sList = new StringList();
+         sList.add(DomainConstants.SELECT_ID);
+
+       System.out.println("data at domain object="+doObjectE.getDescription(context));
+			
+      String sRelProSpecification = PropertyUtil.getSchemaProperty(context,"relationship_A_ProjectSpecification");
+      String ZSoftDoc = PropertyUtil.getSchemaProperty(context,"type_A_SoftwareDocument");
+      mListRelatedData = doObjectE.getRelatedObjects(context,
+     sRelProSpecification, ZSoftDoc, sList, null, false, true,(short) 1, "", "");
+
+String desc=null;
+
+Iterator mListPartObjItr = mListRelatedData.iterator();
+while (mListPartObjItr.hasNext()) 
+{
+	Map mListPartObjMap = (Map) mListPartObjItr.next();
+	String strObjName = (String) mListPartObjMap.get(DomainConstants.SELECT_ID);
+                DomainObject domainObject1 = new DomainObject(strObjName);
+                desc=domainObject1.getDescription(context);
+}
+	                                 	
+	if(desc.equalsIgnoreCase("ALLOW"))
+		{ System.out.println("allowed");
+                                             return 0;
+				
+		}	
+	else
+	            { //JOptionPane.showMessageDialog(null,"There are no Document Objects & Members Connected to this Object", " error",JOptionPane.WARNING_MESSAGE);
+ System.out.println("not allowed");   
+	            				return 1;
+                           
+         		}
+}
+}
